@@ -1,5 +1,5 @@
 FROM alpine:latest
-MAINTAINER Ludovic MAILLET <Ludovic@maillet.me>
+MAINTAINER Ludovic MAILLET <Ludo.Goodlinux@gmail.com>
 
 RUN apk -U add graphviz maven tzdata git openjdk11-jre
 
