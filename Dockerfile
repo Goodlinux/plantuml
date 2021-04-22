@@ -15,8 +15,8 @@ ENV TZ=Europe/Paris \
 RUN apk -U add graphviz maven tzdata git openjdk11-jre 
 
 RUN mkdir /app  &&  cd /app  \
-    && cp /usr/share/zoneinfo/$TS /etc/localtime \
-    && echo $TZ >  /etc/timezone  \
+#    && cp /usr/share/zoneinfo/$TS /etc/localtime \
+#    && echo $TZ >  /etc/timezone  \
     && git clone https://github.com/plantuml/plantuml-server.git /app/ \
     && git clone https://github.com/plantuml-stdlib/Archimate-PlantUML.git \
     && mvn -U package 
