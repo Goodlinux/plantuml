@@ -1,8 +1,6 @@
 FROM alpine:latest
 MAINTAINER Ludovic MAILLET <Ludo.Goodlinux@gmail.com>
 
-RUN apk -U add graphviz maven tzdata git openjdk11-jre
-
 EXPOSE 8080
 
 ENV TZ=Europe/Paris \
@@ -14,11 +12,14 @@ ENV TZ=Europe/Paris \
 #IBM_JAVA_OPTIONS='-XX:+UseContainerSupport'  
     
     
-RUN mkdir /app  &&  cd /app  && git clone https://github.com/plantuml/plantuml-server.git /app/ \
-    && git clone https://github.com/plantuml-stdlib/Archimate-PlantUML.git \
-    && mvn -U package \
+RUN apk -U add graphviz maven tzdata git openjdk11-jre   \
+    && mkdir /app  &&  cd /app  \
     && cp /usr/share/zoneinfo/$TS /etc/localtime \
-    && echo $TZ >  /etc/timezone
+    && echo $TZ >  /etc/timezone  \
+    && git clone https://github.com/plantuml/plantuml-server.git /app/ \
+    && git clone https://github.com/plantuml-stdlib/Archimate-PlantUML.git \
+    && mvn -U package 
+
 
 WORKDIR /app
 
