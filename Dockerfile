@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM maven:ibmjava-alpine
 MAINTAINER Ludovic MAILLET <Ludo.Goodlinux@gmail.com>
 
 EXPOSE 8080
@@ -12,8 +12,8 @@ ENV TZ=Europe/Paris \
 #IBM_JAVA_OPTIONS='-XX:+UseContainerSupport'  
     
     
-RUN apk -U add graphviz maven tzdata git openjdk11-jre 
-
+RUN apk -U add graphviz tzdata git 
+#maven openjdk11-jre 
 RUN mkdir /app  &&  cd /app  \
 #    && cp /usr/share/zoneinfo/$TS /etc/localtime \
 #    && echo $TZ >  /etc/timezone  \
