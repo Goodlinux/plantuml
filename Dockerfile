@@ -36,4 +36,4 @@ RUN mkdir /app  &&  cd /app  \
 WORKDIR /app
 
 #CMD java -Djetty.contextpath=/ -jar target/dependency/jetty-runner.jar target/plantuml.war
-CMD CMD /usr/local/bin/entrypoint.sh 
+CMD /usr/local/bin/entrypoint.sh 
