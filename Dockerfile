@@ -17,7 +17,7 @@ RUN mkdir /app  &&  cd /app  \
     && git clone https://github.com/plantuml/plantuml-server.git /app/ \
     && git clone https://github.com/plantuml-stdlib/Archimate-PlantUML.git \
     && mvn -U package \     
-    && echo "0         $CRON_HOUR_DELAY     *       *       $CRON_DAY_DELAY     /usr/local/bin/UpdtPlantuml" >> /etc/crontabs/root  \
+    && echo "0         $CRON_HOUR_DELAY     *       *       $CRON_DAY_DELAY     /usr/local/bin/UpdtPlantuml" > /etc/crontabs/root  \
     && echo "apk -U upgrade " > /usr/local/bin/UpdtPlantuml  \
     && echo "cd /app " >> /usr/local/bin/UpdtPlantuml       \
     && echo "git pull " >> /usr/local/bin/UpdtPlantuml      \
@@ -25,9 +25,15 @@ RUN mkdir /app  &&  cd /app  \
     && echo "cd /app/Archimate " >> /usr/local/bin/UpdtPlantuml \
     && echo "git pull " >> /usr/local/bin/UpdtPlantuml  \
     && echo "reboot " >> /usr/local/bin/UpdtPlantuml  \
-    && echo "chmod a+x /usr/local/bin/*"
+    && echo "#! /bin/sh" > /usr/local/bin/entrypoint.sh \
+	&& echo "echo lancement de cron" >> /usr/local/bin/entrypoint.sh  \
+	&& echo "crond -b" >> /usr/local/bin/entrypoint.sh  \
+	&& echo "echo lancement du serveur plantuml" >> /usr/local/bin/entrypoint.sh  \
+    && echo "java -Djetty.contextpath=/ -jar target/dependency/jetty-runner.jar target/plantuml.war "  >> /usr/local/bin/entrypoint.sh  \
+    && echo "exec /bin/sh" >> /usr/local/bin/entrypoint.sh  \
+	&& chmod a+x /usr/local/bin/*
 
 WORKDIR /app
 
-CMD java -Djetty.contextpath=/ -jar target/dependency/jetty-runner.jar target/plantuml.war
-#CMD /bin/sh
+#CMD java -Djetty.contextpath=/ -jar target/dependency/jetty-runner.jar target/plantuml.war
+CMD CMD /usr/local/bin/entrypoint.sh 
