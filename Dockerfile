@@ -17,7 +17,6 @@ RUN mkdir /app  &&  cd /app  \
     && git clone https://github.com/plantuml/plantuml-server.git /app/ \
     && git clone https://github.com/plantuml-stdlib/Archimate-PlantUML.git \
     && mvn -U package \     
-    && echo "0         $CRON_HOUR_DELAY     *       *       $CRON_DAY_DELAY     /usr/local/bin/UpdtPlantuml" > /etc/crontabs/root  \
     && echo "apk -U upgrade " > /usr/local/bin/UpdtPlantuml  \
     && echo "cd /app " >> /usr/local/bin/UpdtPlantuml       \
     && echo "git pull " >> /usr/local/bin/UpdtPlantuml      \
@@ -26,6 +25,8 @@ RUN mkdir /app  &&  cd /app  \
     && echo "git pull " >> /usr/local/bin/UpdtPlantuml  \
     && echo "reboot " >> /usr/local/bin/UpdtPlantuml  \
     && echo "#! /bin/sh" > /usr/local/bin/entrypoint.sh \
+    && echo "parametrage de Cron" >> /usr/local/bin/entrypoint.sh  \
+    && echo "echo '0         $CRON_HOUR_DELAY     *       *       $CRON_DAY_DELAY     /usr/local/bin/UpdtPlantuml'" >> /usr/local/bin/entrypoint.sh  \
     && echo "echo lancement de cron" >> /usr/local/bin/entrypoint.sh  \
     && echo "crond -b&" >> /usr/local/bin/entrypoint.sh  \
     && echo "echo lancement du serveur plantuml" >> /usr/local/bin/entrypoint.sh  \
