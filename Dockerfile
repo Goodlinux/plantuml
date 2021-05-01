@@ -26,7 +26,7 @@ RUN mkdir /app  &&  cd /app  \
     && echo "reboot " >> /usr/local/bin/UpdtPlantuml  \
     && echo "#! /bin/sh" > /usr/local/bin/entrypoint.sh \
     && echo "echo 'parametrage de Cron'" >> /usr/local/bin/entrypoint.sh  \
-    && echo "echo '0         \$CRON_HOUR_DELAY     *       *       \$CRON_DAY_DELAY     /usr/local/bin/UpdtPlantuml' > /etc/crontabs/root" >> /usr/local/bin/entrypoint.sh  \
+    && echo "echo '0         '\$CRON_HOUR_DELAY'     *       *       '\$CRON_DAY_DELAY'     /usr/local/bin/UpdtPlantuml' > /etc/crontabs/root" >> /usr/local/bin/entrypoint.sh  \
     && echo "echo 'lancement de cron'" >> /usr/local/bin/entrypoint.sh  \
     && echo "crond -b&" >> /usr/local/bin/entrypoint.sh  \
     && echo "echo 'lancement du serveur plantuml'" >> /usr/local/bin/entrypoint.sh  \
