@@ -13,3 +13,4 @@ Create your own plantuml server running on docker.
 
  CRON_HOUR_START = 22        Hour to start the Job for Updates  
  CRON_DAY_START = sun        Day to start the job for updates values "mon tue ... sat sun"
+ TZ=Europe/Paris             Time zone for the container 
