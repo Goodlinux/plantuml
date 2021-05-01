@@ -5,8 +5,8 @@ EXPOSE 8080
 
 ENV MAVEN_CONFIG=/app/.m2  \
     MAVEN_HOME='/usr/share/java/maven3' \
-    CRON_HOUR_DELAY=23 \
-    CRON_DAY_DELAY=sun \ 
+    CRON_HOUR_START=23 \
+    CRON_DAY_START=sun \ 
     TZ=Europe/Paris
 
 RUN apk -U add graphviz tzdata git apk-cron 
@@ -26,7 +26,7 @@ RUN mkdir /app  &&  cd /app  \
     && echo "reboot " >> /usr/local/bin/UpdtPlantuml  \
     && echo "#! /bin/sh" > /usr/local/bin/entrypoint.sh \
     && echo "echo 'parametrage de Cron'" >> /usr/local/bin/entrypoint.sh  \
-    && echo "echo '0         '\$CRON_HOUR_DELAY'     *       *       '\$CRON_DAY_DELAY'     /usr/local/bin/UpdtPlantuml' > /etc/crontabs/root" >> /usr/local/bin/entrypoint.sh  \
+    && echo "echo '0         '\$CRON_HOUR_START'     *       *       '\$CRON_DAY_START'     /usr/local/bin/UpdtPlantuml' > /etc/crontabs/root" >> /usr/local/bin/entrypoint.sh  \
     && echo "echo 'lancement de cron'" >> /usr/local/bin/entrypoint.sh  \
     && echo "crond -b&" >> /usr/local/bin/entrypoint.sh  \
     && echo "echo 'lancement du serveur plantuml'" >> /usr/local/bin/entrypoint.sh  \
