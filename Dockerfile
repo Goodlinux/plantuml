@@ -27,7 +27,7 @@ RUN echo "apk -U upgrade "						> /usr/local/bin/UpdtPlantuml  \
     && echo "echo 'parametrage de Cron'" 					>> /usr/local/bin/entrypoint.sh  \
     && echo "echo '0         '\$CRON_HOUR_START'     *       *       '\$CRON_DAY_START'     /usr/local/bin/UpdtPlantuml' > /etc/crontabs/root" >> /usr/local/bin/entrypoint.sh  \
     && echo "echo 'lancement de cron'" 						>> /usr/local/bin/entrypoint.sh  \
-    && echo "echo '<p>Server  $SERVER_NAME : <%= net.sourceforge.plantuml.version.Version.fullDescription() %></p>' > /app/target/plantuml/resource/footer.jspf"	>> /usr/local/bin/entrypoint.sh  \
+    && echo "echo '<p>Server  $SERVER_NAME : <%= net.sourceforge.plantuml.version.Version.fullDescription() %></p>' > /app/target/plantuml/resource/footer.jsp"	>> /usr/local/bin/entrypoint.sh  \
     && echo "crond -b&" 							>> /usr/local/bin/entrypoint.sh  \
     && echo "echo 'lancement du serveur plantuml'"				>> /usr/local/bin/entrypoint.sh  \
     && echo "exec java -Djetty.contextpath=/ -jar target/dependency/jetty-runner.jar target/plantuml.war &" >> /usr/local/bin/entrypoint.sh  \
